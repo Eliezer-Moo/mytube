@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('title', 250);
             $table->string('description', 250);
-            $table->string('image');
+            $table->string('image',150);
             $table->string('video_path', 150);
             $table->tinyInteger('status');
             $table->timestamps();
