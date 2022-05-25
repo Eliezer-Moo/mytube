@@ -15,8 +15,8 @@ use App\Models\Comentario;
 */
 
 Route::get('/', function () {
-    //return view('welcome');
-    $videos = Video::all();
+    return view('welcome');
+/*    $videos = Video::all();
     foreach ($videos as $video){
         echo $video-> title.'<br>';
         echo $video->user->email.'<br>';
@@ -25,7 +25,7 @@ Route::get('/', function () {
         }
         echo '<hr>';
     }
-    die();
+    die();*/
 });
 
 Route::middleware([
@@ -41,3 +41,5 @@ Route::middleware([
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('videos','App\http\Controllers\videoController');
