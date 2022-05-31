@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class VideoController extends Controller
@@ -38,6 +39,21 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         //guarda el registro capturado(no editado, sino es nuevo)
+        $validateData = $this->validate($request,[
+           'title'=> 'required|min:5',
+           'description'=> 'required',
+           'video'=> 'mimes:mp4'
+        ]);
+        $video = new Video();
+        $user = \Auth::user();
+        $video->user_id = $user->id;
+        $video->title = $request->input('title');
+        $video->description = $request->input('description');
+        $video->save();
+        return redirect()->route('videos.index')
+        ->with(array(
+            'message'=>'El video se ha subido correctamente'
+    ));
     }
 
     /**
