@@ -49,6 +49,13 @@ class VideoController extends Controller
         $video->user_id = $user->id;
         $video->title = $request->input('title');
         $video->description = $request->input('description');
+        //subir imagen miniatura
+        $image = $request->file('image');
+        if($image){
+            $image_path = time().$image->getClientOriginalName();
+            \Storage::disk('images')->put($image_path,\File::get($image));
+            $video->image = $image_path;
+        }
         $video->save();
         return redirect()->route('videos.index')
         ->with(array(
