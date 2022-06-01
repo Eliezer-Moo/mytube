@@ -38,6 +38,9 @@
                         <li class="nav-item">
                         <a class="nav-link" href="{{route('videos.index')}}" role="button">Lista de videos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('videos.create')}}" role="button">Subir videos</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
