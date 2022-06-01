@@ -33,6 +33,7 @@
                     <label for="video">Archivo de Vídeo</label>
                     <input type="file" class="form-control" id="video" name="video"/>
                 </div>
+                <hr>
                 <button type="submit" class="btn btn-success">Crear Vídeo</button>
             </form>
         </div>

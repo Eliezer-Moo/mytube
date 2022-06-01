@@ -15,7 +15,7 @@ use App\Models\Comentario;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('videos.index');
 /*    $videos = Video::all();
     foreach ($videos as $video){
         echo $video-> title.'<br>';
