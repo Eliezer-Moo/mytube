@@ -1,0 +1,27 @@
+.btn-acciones {
+    width: 105%;
+    padding: 10px;
+}
+
+.btn-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff !important;
+}
+
+.btn-circle .btn {
+    border-radius: 0%;
+}
+
+.btn-circle .btn:first-child {
+    border-radius: 10% 0% 0% 10%;
+}
+
+.btn-circle .btn:last-child {
+    border-radius: 0% 10% 10% 0%;
+}
+
+.custom-file-label::after {
+    content: "Elegir" !important;
+}

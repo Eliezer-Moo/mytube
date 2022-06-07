@@ -15,7 +15,7 @@ use App\Models\Comentario;
 */
 
 Route::get('/', function () {
-    return view('videos.index');
+    return view('welcome');
 /*    $videos = Video::all();
     foreach ($videos as $video){
         echo $video-> title.'<br>';
@@ -43,3 +43,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('videos','App\http\Controllers\videoController');
+
+Route::get('/delete-video/{video_id}', array(
+    'as'=> 'delete-video',
+    'middleware' => 'auth',
+    'uses'=> 'App\Http\Controllers\VideoController@delete_video'
+));

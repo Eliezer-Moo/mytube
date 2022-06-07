@@ -17,8 +17,9 @@ class VideoController extends Controller
     {
         /*Carga la página de inicio del objeto*/
         $vs_videos = VsVideos::where('status','=',1)->get();
+        $cont = VsVideos::count();
         $videos = $this->cargarDT($vs_videos );
-        return  view('videos.index')->with('videos',$videos);
+        return  view('videos.index')->with('videos',$videos)->with('cont', $cont);
 
     }
     public function cargarDT($consulta)
@@ -27,9 +28,9 @@ class VideoController extends Controller
 
         foreach ($consulta as $key => $value){
 
-/*            $ruta = "eliminar".$value['id'];
-            $eliminar = route('delete-area', $value['id']);
-            $actualizar =  route('areas.edit', $value['id']);
+            $ruta = "eliminar".$value['id'];
+            $eliminar = 'delete-video'. $value['id'];
+            $actualizar =  route('videos.edit', $value['id']);
 
 
             $acciones = '
@@ -55,7 +56,7 @@ class VideoController extends Controller
                     <div class="modal-body">
                       <p class="text-primary">
                         <small>
-                            '.$value['id'].', '.$value['descripcion'].'                 </small>
+                            '.$value['id'].', '.$value['title'].'                 </small>
                       </p>
                     </div>
                     <div class="modal-footer">
@@ -65,17 +66,17 @@ class VideoController extends Controller
                   </div>
                 </div>
               </div>
-            ';*/
+            ';
 
             $videos[$key] = array(
-               // $acciones,
+               $acciones,
                 $value['id'],
                 $value['title'],
                 $value['image'],
                 $value['description'],
                 $value['video_path'],
                 $value['name'],
-                $value['mail']
+                $value['email']
             );
 
         }
@@ -154,6 +155,7 @@ class VideoController extends Controller
     public function edit($id)
     {
         //abre el formulario para edición de un registro
+        return view('videos.edit', $id);
     }
 
     /**
@@ -177,5 +179,21 @@ class VideoController extends Controller
     public function destroy($id)
     {
         //borrado
+    }
+
+    public function delete_video($video_id){
+        $video = Video::find($video_id);
+        if($video){
+            $video->activo = 0;
+            $video->update();
+            return redirect()->route('videos.index')->with(array(
+                "message" => "El video se ha eliminado correctamente"
+            ));
+        }else{
+            return redirect()->route('videos.index')->with(array(
+                "message" => "El video que trata de eliminar no existe"
+            ));
+        }
+
     }
 }
