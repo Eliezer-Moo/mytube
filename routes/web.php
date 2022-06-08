@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Video;
-use App\Models\Comentario;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
