@@ -22,8 +22,8 @@
                     <th>Acciones</th>
                     <th>Id video</th>
                     <th>Titulo</th>
-                    <th>Miniatura</th>
                     <th>Descripción</th>
+                    <th>Miniatura</th>
                     <th>Link video</th>
                     <th>Nombre</th>
                     <th>Email</th>
@@ -54,7 +54,7 @@
     $(document).ready(function() {
         $('#example').DataTable({
             "data": data,
-            "pageLength": 100,
+            "pageLength": 50,
             "order": [
                 [0, "desc"]
             ],

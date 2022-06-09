@@ -157,7 +157,9 @@ class VideoController extends Controller
     public function edit($id)
     {
         //abre el formulario para edición de un registro
-        return view('videos.edit', $id);
+        $video = VsVideos::find($id);
+
+        return view('videos.edit')->with('video', $video);
     }
 
     /**
@@ -170,6 +172,35 @@ class VideoController extends Controller
     public function update(Request $request, $id)
     {
         //guarda la información modificada del edit
+        $validateData = $this->validate($request,[
+            'title'=> 'required|min:5',
+            'description'=> 'required',
+            'video'=> 'mimes:mp4'
+        ]);
+        $user = \Auth::user();
+        $video = Video::find($id);
+        $video->user_id = $user->id;
+        $video->title = $request->input('title');
+        $video->description = $request->input('description');
+        //subir imagen miniatura
+        $image = $request->file('image');
+        if($image){
+            $image_path = time().$image->getClientOriginalName();
+            \Storage::disk('images')->put($image_path,\File::get($image));
+            $video->image = $image_path;
+        }
+        //subir video
+        $video_file = $request->file('video');
+        if ($video_file){
+            $video_path = time().$video_file->getClientOriginalName();
+            \Storage::disk('videos')->put($video_path,\File::get($video_file));
+            $video->video_path = $video_path;
+        }
+        $video->update();
+        return redirect()->route('videos.index')
+            ->with(array(
+                'message'=>'El video se ha subido correctamente'
+            ));
     }
 
     /**
